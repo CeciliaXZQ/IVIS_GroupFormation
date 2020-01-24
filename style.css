@@ -1,0 +1,126 @@
+/* Body */
+body {
+    background-image: linear-gradient(to right, #bccadc, #93a5cf);
+}
+/* body {
+    background-image: linear-gradient(to bottom right, #e4efe9, #93a5cf);
+} */
+
+/* Jumbotron */
+#header {
+    text-align: center;
+    padding: 10px 0px;
+}
+
+.row {
+    margin-bottom: 25px;
+}
+
+
+/* Intro overlay */
+#overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(2,2,2,0.85);
+    z-index: 2;
+    cursor: pointer;
+    text-align: center;
+    color: #f8f9fa;
+}
+@media (max-width: 576px) {
+    #overlay h1 {
+        padding-top: 50px !important;
+    }
+    #overlay p {
+        padding-top: 40px !important;
+        padding-left: 10% !important;
+        padding-right: 10% !important;
+    }
+}
+#overlay h1 {
+    padding-top: 250px;
+}
+#overlay p {
+    padding-top: 50px;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+
+/* Progress bars */
+.progress {
+    height: 26px;
+    margin: 10px;
+}
+
+.progressLabel {
+    padding-top: 2px;
+    padding-left: 5px;
+    color: #FFFFFF;
+}
+
+#explanatoryProgBars {
+    margin-top: 15px;
+}
+
+/* Parallel coordinates */
+.parcoords {
+    height: 400px;
+    width: 800px;
+    /* border: 6px ridge #15547D; */
+}
+
+
+
+/* Tables */
+#tables {
+    text-align: center;
+    display:grid;
+          grid-template-columns: 30% 30%;
+          /*
+          grid-column-gap:1em;
+          grid-row-gap:1em;
+          */
+          grid-gap:3em;
+}
+#groupTable{
+    border: 2px solid #040F17;
+}
+#classTable{
+    border: 2px solid #040F17;
+}
+.table td {
+    padding: 2px;
+}
+
+.table tr .filtered {
+    display: none; 
+}
+
+
+/* Interest-badges */
+.badge { 
+    flex: 0 0 auto;
+    margin: 0px 2px; 
+}
+
+.bgSociety { background: #FF0000; }
+.bgSocial {  background: #CC3300; }
+.bgTravel {  background: #888800; }
+.bgPhoto {   background: #33CC00; }
+.bgArt {     background: #00FF00; }
+.bgMusic {   background: #00CC33; }
+.bgFood {    background: #008888; }
+.bgGym {     background: #0033CC; }
+.bgSport {   background: #0000FF; }
+.bgGaming {  background: #3300CC; }
+.bgProg {    background: #880088; }
+.bgIVIS {    background: #CC0033; }
+
+.bgFood, .bgGym, .bgSport, .bgGaming, .bgProg { text-decoration: #FFFFFF; }

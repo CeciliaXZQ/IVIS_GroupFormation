@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="d3.parcoords.css"/>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script> -->
+        <!-- <link rel="stylesheet" type="text/css" href="evaluationChart.css"/> -->
+
+        <title>IVIS Project 1: Visualize Student Group Formation</title>
+    </head>
+    <style>
+        .row{
+          display:grid;
+          grid-template-columns: 35% 30%;
+          /*
+          grid-column-gap:1em;
+          grid-row-gap:1em;
+          */
+          grid-gap:1em;
+        }
+    
+        .row > div{
+          /* background:#eee; */
+          padding:1em;
+        }
+        /* .row > div:nth-child(odd){
+          /* background:#ddd; 
+        } */
+    
+      </style>
+    <body>
+        <div id="header">
+            <h2>IVIS Project 1: Visualize Student Group Formation</h2>
+        </div>
+        <div class="container-fluid">
+            <!-- <div id="circles" class="row">
+                <div id="evaluation" class="radarChart"></div>
+            </div> -->
+            <div style="width: 50%" class="row">
+                <canvas id="myChart" height="450" width="600"></canvas>
+            </div>
+        <div>
+        Click on the x labels!
+        </div>
+        <div id="hello">
+        </div>
+
+            <div id="pc" class="row">
+                <!-- <div id="groupVis" class="col-md-6"></div> -->
+                <div id="evaluation" class="radarChart"></div>
+                <div class="col-md-6">
+                    <div class="justify-content-center row">
+                        <div id="vis" class="parcoords col-11"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="tables" class="row">
+                <div id="groupTable" class="col-md-6">
+                    <h4>Group members</h4>
+                </div>
+                <div id="classTable" class="col-md-6">
+                    <h4>All students</h4>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="radarChart.js"></script>	
+        <!-- <script src="https://d3js.org/d3.v4.js"></script> -->
+        <!-- <script src="https://d3js.org/d3.v3.min.js"></script> -->
+        <script src="d3.parcoords.js"></script>
+        <!-- <script src="controller.js"></script> -->
+        <script src="app.js"></script>
+        <!-- <script src="evaluationChart.js"></script> -->
+    </body>
+</html>
