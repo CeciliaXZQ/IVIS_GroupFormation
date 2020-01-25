@@ -8,8 +8,16 @@ d3.csv('Data for IVIS20 Project 1.csv', function(dataset) {
     })
 
     console.log(data);
+    var allGroups = [],
+    cols = 12;
 
+    //init the grid matrix
+    for ( var i = 0; i < cols; i++ ) {
+        allGroups[i] = []; 
+    }
+    console.log(allGroups);
     var groupData = [];
+    
     var groupAvg = [{}];
 
     //Create and style parcoords
@@ -386,49 +394,119 @@ RadarChart(".radarChart", data_eval, radarChartOptions);
     })
 
         // Create all groups summary
-        var ctx = document.getElementById("myChart").getContext('2d');
+        // var ctx = document.getElementById("myChart").getContext('2d');
+//         var original = Chart.defaults.global.legend.onClick;
 
-        var original = Chart.defaults.global.legend.onClick;
-        Chart.defaults.global.legend.onClick = function(e, legendItem) {
-          update_caption(legendItem);
-          original.call(this, e, legendItem);
-        };
+//         // Chart.defaults.global.legend.onClick = function(e, legendItem) {
+//         //     console.log("click!!");
+//         //   update_caption(legendItem);
+//         //   original.call(this, e, legendItem);
+//         // };
         
-        var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: ["M", "T", "W", "T", "F", "S", "S"],
-            datasets: [{
-              label: 'apples',
-              backgroundColor: "rgba(153,255,51,1)",
-              data: [12, 19, 3, 17, 28, 24, 7]}]//,
-            // }, {
-            //   label: 'oranges',
-            //   backgroundColor: "rgba(255,153,0,1)",
-            //   data: [30, 29, 5, 5, 20, 3, 10],
-            // }]
-          }
-        });
+
+// var options = {
+//     title: {
+//       display: true,
+//       text: "Summary of all groups",
+//       position: "top"
+//     },
+//     onClick: (evt, item) => {
+//       console.log("click!!!!");
+//       myChart.update();
+//      // item[0]._model.outerRadius += 10;
+//     }
+//   };
+//         var myChart = new Chart(ctx, {
+//           type: 'bar',
+//           data: {
+//             labels: ["Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Group 6", "Group 7", "Group 8", "Group 9", "Group 10", "Group 11", "Group 12"],
+//             datasets: [{
+//               label: 'number of members',
+//               backgroundColor: "rgba(92,209,123,0.8)",
+//               data: [
+//                   allGroups[0].length, 
+//                   allGroups[1].length, 
+//                   allGroups[2].length, 
+//                   allGroups[3].length, 
+//                   allGroups[4].length, 
+//                   allGroups[5].length,
+//                   allGroups[6].length,
+//                   allGroups[7].length,
+//                   allGroups[8].length,
+//                   allGroups[9].length,
+//                   allGroups[10].length,
+//                   allGroups[11].length]}]//,
+//           },
+//           options: options
+//         });
         
-        var labels = {
-          "apples": true,
-         // "oranges": true
-        };
-        
-        var caption = document.getElementById("caption");
-        
-        var update_caption = function(legend) {
-          labels[legend.text] = legend.hidden;
-        
-          var selected = Object.keys(labels).filter(function(key) {
-            return labels[key];
-          });
-        
-          var text = selected.length ? selected.join(" & ") : "nothing";
-        
-          caption.innerHTML = "The chart is displaying " + text;
-        };
-        
+//         var labels = {
+//           "number of members": true,
+//          // "oranges": true
+//         };
+  ///////////////////////////////
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+  var barChartData = {
+    labels : ["January","February","March","April","May","June","July"],
+    datasets : [
+        {
+            fillColor : "rgba(220,220,220,0.5)",
+            strokeColor : "rgba(220,220,220,0.8)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+        },
+        {
+            fillColor : "rgba(151,187,205,0.5)",
+            strokeColor : "rgba(151,187,205,0.8)",
+            highlightFill : "rgba(151,187,205,0.75)",
+            highlightStroke : "rgba(151,187,205,1)",
+            data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+        }
+    ]
+
+}
+  window.myBar = new Chart(ctx).Bar(barChartData, {
+    responsive : true
+});
+//}
+
+var myEle=document.getElementById("myChart");
+myEle.addEventListener('click', function(evt) {
+           var ctx = document.getElementById("myChart").getContext("2d");
+           // from the endPoint we get the end of the bars area
+           var base = window.myBar.scale.endPoint;
+           var height_bar = window.myBar.chart.height;
+           var width_bar = window.myBar.chart.width;
+           // only call if event is under the xAxis
+           if(evt.pageY > base){
+               // how many xLabels we have
+               var count = window.myBar.scale.valuesCount;
+               var padding_left = window.myBar.scale.xScalePaddingLeft;
+               var padding_right = window.myBar.scale.xScalePaddingRight;
+               // calculate width for each label
+               var xwidth = (width_bar-padding_left-padding_right)/count;
+               // determine what label were clicked on AND PUT IT INTO bar_index 
+               var bar_index = (evt.offsetX - padding_left) / xwidth;
+               // don't call for padding areas
+               if(bar_index > 0 & bar_index < count){
+                   bar_index = parseInt(bar_index);
+                // either get label from barChartData
+                console.log("barChartData:" + barChartData.labels[bar_index]);
+                // or from current data
+                var ret = [];
+                for (var i = 0; i < window.myBar.datasets[0].bars.length; i++) {
+                    ret.push(window.myBar.datasets[0].bars[i].label)
+                };
+                console.log("current data:" + ret[bar_index]);
+                // based on the label you can call any function
+                var myText=document.getElementById('hello');
+    myText.innerHTML= ret[bar_index] + ": " + window.myBar.datasets[0].bars[bar_index].value;
+               }
+           }
+   }
+);         
 })
 
 
