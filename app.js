@@ -17,7 +17,7 @@ d3.csv('Data for IVIS20 Project 1.csv', function(dataset) {
     }
     console.log(allGroups);
     var groupData = [];
-    
+    var groupIndex;
     var groupAvg = [{}];
 
     //Create and style parcoords
@@ -57,8 +57,10 @@ d3.csv('Data for IVIS20 Project 1.csv', function(dataset) {
         .append('th')
             .text(function(d) { return d; })
 
+    console.log("data in group tables: ", data);
     var groupRows = groupTbody.selectAll('tr')
-        .data(data)
+        .data(data)    
+     //   .data(allGroups[groupIndex])
         .enter()
         .append('tr')
         .attr('style', 'display:none')
@@ -67,26 +69,29 @@ d3.csv('Data for IVIS20 Project 1.csv', function(dataset) {
             'mouseout': parcoords.unhighlight,
             'click': function(d,i) { 
                 var selected = data.map(function(d) { return data[i].key })
+                console.log("current group: ",allGroups[groupIndex]);
+                console.log(allGroups);
+                console.log("the selected: ", selected);
                 groupTbody.selectAll('tr')
                     .filter(function(d) { return selected.indexOf(d.key) > -1})
                     .attr('style', 'display:none')
 
-                for(var i = 0; i < groupData.length; i++) {
-                    if (groupData[i].key == d.key) {
-                        groupData.splice(i,1)
+                for(var i = 0; i < allGroups[groupIndex].length; i++) {
+                    if (allGroups[groupIndex][i].key == d.key) {
+                        allGroups[groupIndex].splice(i,1)
                         break;
                     }
                 }
                 
-                groupAvg[0].IVIS = d3.mean(groupData, function(d) { return d.IVIS; });
-                groupAvg[0].Statistic = d3.mean(groupData, function(d) { return d.Statistic; });
-                groupAvg[0].Math = d3.mean(groupData, function(d) { return d.Math; });
-                groupAvg[0].Art = d3.mean(groupData, function(d) { return d.Art; });
-                groupAvg[0].Computer = d3.mean(groupData, function(d) { return d.Computer; });
-                groupAvg[0].Prog = d3.mean(groupData, function(d) { return d.Prog; });
-                groupAvg[0].Graphic = d3.mean(groupData, function(d) { return d.Graphic; });
-                groupAvg[0].HCI = d3.mean(groupData, function(d) { return d.HCI; });
-                groupAvg[0].UX = d3.mean(groupData, function(d) { return d.UX; });
+                groupAvg[0].IVIS = d3.mean(allGroups[groupIndex], function(d) { return d.IVIS; });
+                groupAvg[0].Statistic = d3.mean(allGroups[groupIndex], function(d) { return d.Statistic; });
+                groupAvg[0].Math = d3.mean(allGroups[groupIndex], function(d) { return d.Math; });
+                groupAvg[0].Art = d3.mean(allGroups[groupIndex], function(d) { return d.Art; });
+                groupAvg[0].Computer = d3.mean(allGroups[groupIndex], function(d) { return d.Computer; });
+                groupAvg[0].Prog = d3.mean(allGroups[groupIndex], function(d) { return d.Prog; });
+                groupAvg[0].Graphic = d3.mean(allGroups[groupIndex], function(d) { return d.Graphic; });
+                groupAvg[0].HCI = d3.mean(allGroups[groupIndex], function(d) { return d.HCI; });
+                groupAvg[0].UX = d3.mean(allGroups[groupIndex], function(d) { return d.UX; });
 
                 if (groupAvg[0].IVIS == null) { 
                     var data_eval = [
@@ -256,25 +261,26 @@ RadarChart(".radarChart", data_eval, radarChartOptions);
                     .attr('style', 'null')
 
                 var alreadyAdded = false;
-                for(var i = 0; i < groupData.length; i++) {
-                    if (groupData[i].key == d.key) {
+                console.log("classrow: ", allGroups[groupIndex].length);
+                for(var i = 0; i < allGroups[groupIndex].length; i++) {
+                    if (allGroups[groupIndex][i].key == d.key) {
                         alreadyAdded = true;
                         break;
                     }
                 }
                 if (!alreadyAdded) {
-                    groupData.push(d)
+                    allGroups[groupIndex].push(d)
                 }
 
-                groupAvg[0].IVIS = d3.mean(groupData, function(d) { return d.IVIS; });
-                groupAvg[0].Statistic = d3.mean(groupData, function(d) { return d.Statistic; });
-                groupAvg[0].Math = d3.mean(groupData, function(d) { return d.Math; });
-                groupAvg[0].Art = d3.mean(groupData, function(d) { return d.Art; });
-                groupAvg[0].Computer = d3.mean(groupData, function(d) { return d.Computer; });
-                groupAvg[0].Prog = d3.mean(groupData, function(d) { return d.Prog; });
-                groupAvg[0].Graphic = d3.mean(groupData, function(d) { return d.Graphic; });
-                groupAvg[0].HCI = d3.mean(groupData, function(d) { return d.HCI; });
-                groupAvg[0].UX = d3.mean(groupData, function(d) { return d.UX; });
+                groupAvg[0].IVIS = d3.mean(allGroups[groupIndex], function(d) { return d.IVIS; });
+                groupAvg[0].Statistic = d3.mean(allGroups[groupIndex], function(d) { return d.Statistic; });
+                groupAvg[0].Math = d3.mean(allGroups[groupIndex], function(d) { return d.Math; });
+                groupAvg[0].Art = d3.mean(allGroups[groupIndex], function(d) { return d.Art; });
+                groupAvg[0].Computer = d3.mean(allGroups[groupIndex], function(d) { return d.Computer; });
+                groupAvg[0].Prog = d3.mean(allGroups[groupIndex], function(d) { return d.Prog; });
+                groupAvg[0].Graphic = d3.mean(allGroups[groupIndex], function(d) { return d.Graphic; });
+                groupAvg[0].HCI = d3.mean(allGroups[groupIndex], function(d) { return d.HCI; });
+                groupAvg[0].UX = d3.mean(allGroups[groupIndex], function(d) { return d.UX; });
 
             //  console.log(d);     
                 data_eval = [
@@ -290,11 +296,7 @@ RadarChart(".radarChart", data_eval, radarChartOptions);
                         {axis:"UX",value:groupAvg[0].UX},
                    ]
                 ];
-                console.log(data_eval);
-                if (groupAvg[0].IVIS == null) { 
-                    progressMissing.style('width', function(d) { return 0; }) 
-                    progressExtra.style('width', function(d) { return 0; }) 
-                }
+
         ////////////////////////////////////////////////////////////// 
         //////////////////// Draw the Chart ////////////////////////// 
         ////////////////////////////////////////////////////////////// 
@@ -307,19 +309,6 @@ RadarChart(".radarChart", data_eval, radarChartOptions);
         };
         //Call function to draw the Radar chart
         RadarChart(".radarChart", data_eval, radarChartOptions);
-
-                // progress.style('width', function(d) { 
-                //     if (dataAvg[0][d] >= groupAvg[0][d]) {
-                //         return (groupAvg[0][d]*10).toFixed(0) + '%'; }
-                //     else { return (dataAvg[0][d]*10).toFixed(0) + '%'; }})
-                // progressMissing.style('width', function(d) { 
-                //     if ((dataAvg[0][d] - groupAvg[0][d])*10 > 0) {
-                //         return ((dataAvg[0][d] - groupAvg[0][d])*10) + '%' }
-                //     else { return 0; }})
-                // progressExtra.style('width', function(d) { 
-                //     if ((groupAvg[0][d] - dataAvg[0][d])*10 > 0) {
-                //         return ((groupAvg[0][d] - dataAvg[0][d])*10) + '%' }
-                //     else { return 0; }})
             }
         })
         
@@ -393,76 +382,30 @@ RadarChart(".radarChart", data_eval, radarChartOptions);
             .style('opacity', 1)
     })
 
-        // Create all groups summary
-        // var ctx = document.getElementById("myChart").getContext('2d');
-//         var original = Chart.defaults.global.legend.onClick;
 
-//         // Chart.defaults.global.legend.onClick = function(e, legendItem) {
-//         //     console.log("click!!");
-//         //   update_caption(legendItem);
-//         //   original.call(this, e, legendItem);
-//         // };
-        
-
-// var options = {
-//     title: {
-//       display: true,
-//       text: "Summary of all groups",
-//       position: "top"
-//     },
-//     onClick: (evt, item) => {
-//       console.log("click!!!!");
-//       myChart.update();
-//      // item[0]._model.outerRadius += 10;
-//     }
-//   };
-//         var myChart = new Chart(ctx, {
-//           type: 'bar',
-//           data: {
-//             labels: ["Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Group 6", "Group 7", "Group 8", "Group 9", "Group 10", "Group 11", "Group 12"],
-//             datasets: [{
-//               label: 'number of members',
-//               backgroundColor: "rgba(92,209,123,0.8)",
-//               data: [
-//                   allGroups[0].length, 
-//                   allGroups[1].length, 
-//                   allGroups[2].length, 
-//                   allGroups[3].length, 
-//                   allGroups[4].length, 
-//                   allGroups[5].length,
-//                   allGroups[6].length,
-//                   allGroups[7].length,
-//                   allGroups[8].length,
-//                   allGroups[9].length,
-//                   allGroups[10].length,
-//                   allGroups[11].length]}]//,
-//           },
-//           options: options
-//         });
-        
-//         var labels = {
-//           "number of members": true,
-//          // "oranges": true
-//         };
-  ///////////////////////////////
   var ctx = document.getElementById("myChart").getContext("2d");
-  var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
   var barChartData = {
-    labels : ["January","February","March","April","May","June","July"],
+    labels: ["Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Group 6", "Group 7", "Group 8", "Group 9", "Group 10", "Group 11", "Group 12"],
     datasets : [
         {
-            fillColor : "rgba(220,220,220,0.5)",
-            strokeColor : "rgba(220,220,220,0.8)",
+            fillColor : "#36BF9F",
+            strokeColor : "#36BF9F",
             highlightFill: "rgba(220,220,220,0.75)",
             highlightStroke: "rgba(220,220,220,1)",
-            data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-        },
-        {
-            fillColor : "rgba(151,187,205,0.5)",
-            strokeColor : "rgba(151,187,205,0.8)",
-            highlightFill : "rgba(151,187,205,0.75)",
-            highlightStroke : "rgba(151,187,205,1)",
-            data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+            data : [
+                allGroups[0].length, 
+                allGroups[1].length, 
+                allGroups[2].length, 
+                allGroups[3].length, 
+                allGroups[4].length, 
+                allGroups[5].length,
+                allGroups[6].length,
+                allGroups[7].length,
+                allGroups[8].length,
+                allGroups[9].length,
+                allGroups[10].length,
+                allGroups[11].length
+            ]
         }
     ]
 
@@ -472,7 +415,44 @@ RadarChart(".radarChart", data_eval, radarChartOptions);
 });
 //}
 
+setInterval(function() {
+    for (var j = 0; j < window.myBar.datasets[0].bars.length; j++) {
+        if(window.myBar.datasets[0].bars[j].value!==allGroups[j].length){
+            barChartData = {
+                labels: ["Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Group 6", "Group 7", "Group 8", "Group 9", "Group 10", "Group 11", "Group 12"],
+                datasets : [
+                    {
+                        fillColor : "#36BF9F",
+                        strokeColor : "rgba(220,220,220,1)",
+                        highlightFill: "rgba(220,220,220,0.75)",
+                        highlightStroke: "rgba(220,220,220,1)",
+                        data : [
+                            allGroups[0].length, 
+                            allGroups[1].length, 
+                            allGroups[2].length, 
+                            allGroups[3].length, 
+                            allGroups[4].length, 
+                            allGroups[5].length,
+                            allGroups[6].length,
+                            allGroups[7].length,
+                            allGroups[8].length,
+                            allGroups[9].length,
+                            allGroups[10].length,
+                            allGroups[11].length
+                        ]
+                    }
+                ]
+            
+            }
+            window.myBar = new Chart(ctx).Bar(barChartData, {
+                responsive : true
+            });
+        }
+    };
+  }, 1000);
+
 var myEle=document.getElementById("myChart");
+
 myEle.addEventListener('click', function(evt) {
            var ctx = document.getElementById("myChart").getContext("2d");
            // from the endPoint we get the end of the bars area
@@ -502,9 +482,28 @@ myEle.addEventListener('click', function(evt) {
                 console.log("current data:" + ret[bar_index]);
                 // based on the label you can call any function
                 var myText=document.getElementById('hello');
-    myText.innerHTML= ret[bar_index] + ": " + window.myBar.datasets[0].bars[bar_index].value;
+                myText.innerHTML= ret[bar_index]; //+ ": " + window.myBar.datasets[0].bars[bar_index].value;
+                groupIndex=bar_index;
+                console.log("group content: ",allGroups[groupIndex])
                }
            }
+            // groupTbody.selectAll('tr')
+            //  //.filter(function(d) { return })
+            //  .attr('style', 'display:none')
+
+            //  groupTbody.selectAll('tr')
+            //  .filter(":contains('" + searchstring + "')").show()//function(d) { return allGroups[groupIndex]})
+            //  .attr('style', 'display:none')
+            // $('tr').filter(":contains('" + searchstring + "')").show();
+        //    if(allGroups[groupIndex].length==0){
+        //     groupTbody.selectAll('tr')
+        //      .filter(function(d) { return })
+        //      .attr('style', 'display:none')
+        //    }else{
+        //     groupTbody.selectAll('tr')
+        //     // .filter(function(d) { return })
+        //      .attr('style', '')
+        //    }
    }
 );         
 })

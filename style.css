@@ -1,11 +1,8 @@
-/* Body */
-body {
-    background-image: linear-gradient(to right, #bccadc, #93a5cf);
-}
-/* body {
-    background-image: linear-gradient(to bottom right, #e4efe9, #93a5cf);
-} */
 
+body { 
+    background: #f7f7f7;
+    color: #404040;
+  }
 /* Jumbotron */
 #header {
     text-align: center;
