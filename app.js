@@ -125,11 +125,9 @@ d3.csv('Data for IVIS20 Project 1.csv', function(dataset) {
                 }
             //  console.log(d);     
 
-        ////////////////////////////////////////////////////////////// 
-        //////////////////// Draw the Chart ////////////////////////// 
-        ////////////////////////////////////////////////////////////// 
+ 
     
-            
+ // Draw the Chart           
         radarChartOptions = {
         w: width_eval,
         h: height_eval,
@@ -201,8 +199,8 @@ d3.csv('Data for IVIS20 Project 1.csv', function(dataset) {
         
     // Create evaluation chart
     var margin_eval = {top: 100, right: 100, bottom: 100, left: 100},
-    width_eval = 300,//Math.min(700, window.innerWidth - 10) - margin_eval.left - margin_eval.right,
-    height_eval = 300;//Math.min(width_eval, window.innerHeight - margin_eval.top - margin_eval.bottom - 20);
+    width_eval = 300,
+    height_eval = 300;
 
     var data_eval = [
         [
@@ -218,11 +216,11 @@ d3.csv('Data for IVIS20 Project 1.csv', function(dataset) {
         ]
      ];
      console.log(data_eval);
-////////////////////////////////////////////////////////////// 
-//////////////////// Draw the Chart ////////////////////////// 
-////////////////////////////////////////////////////////////// 
 
- 
+     
+
+
+// Draw the Chart
 var radarChartOptions = {
 w: width_eval,
 h: height_eval,
@@ -482,28 +480,12 @@ myEle.addEventListener('click', function(evt) {
                 console.log("current data:" + ret[bar_index]);
                 // based on the label you can call any function
                 var myText=document.getElementById('hello');
-                myText.innerHTML= ret[bar_index]; //+ ": " + window.myBar.datasets[0].bars[bar_index].value;
+                myText.innerHTML= ret[bar_index]; 
                 groupIndex=bar_index;
                 console.log("group content: ",allGroups[groupIndex])
                }
            }
-            // groupTbody.selectAll('tr')
-            //  //.filter(function(d) { return })
-            //  .attr('style', 'display:none')
 
-            //  groupTbody.selectAll('tr')
-            //  .filter(":contains('" + searchstring + "')").show()//function(d) { return allGroups[groupIndex]})
-            //  .attr('style', 'display:none')
-            // $('tr').filter(":contains('" + searchstring + "')").show();
-        //    if(allGroups[groupIndex].length==0){
-        //     groupTbody.selectAll('tr')
-        //      .filter(function(d) { return })
-        //      .attr('style', 'display:none')
-        //    }else{
-        //     groupTbody.selectAll('tr')
-        //     // .filter(function(d) { return })
-        //      .attr('style', '')
-        //    }
    }
 );         
 })
